@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Floppy.Utilities.Extensions {
+namespace Floppy.Extensions {
     internal static class ICollectionExtensions {
         #region Internal Methods
 
@@ -8,7 +8,7 @@ namespace Floppy.Utilities.Extensions {
             foreach (T item in items) {
                 collection.Add(item);
             }
-        } 
+        }
 
         #endregion
     }

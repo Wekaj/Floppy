@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 
-namespace Floppy.Utilities.Extensions {
+namespace Floppy.Extensions {
     public static class Vector2Extensions {
         public static float GetAngle(this Vector2 vector) {
             return ((float)Math.Atan2(vector.Y, vector.X) + MathHelper.TwoPi) % MathHelper.TwoPi;

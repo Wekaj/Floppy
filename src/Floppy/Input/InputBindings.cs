@@ -1,4 +1,4 @@
-﻿using Floppy.Utilities.Extensions;
+﻿using Floppy.Extensions;
 using System.Collections.Generic;
 
 namespace Floppy.Input {

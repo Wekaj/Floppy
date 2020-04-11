@@ -1,4 +1,4 @@
-﻿using Floppy.Utilities.Extensions;
+﻿using Floppy.Extensions;
 
 namespace Floppy.Input {
     public class MouseBinding : IBinding {

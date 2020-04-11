@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 
-namespace Floppy.Utilities.Extensions {
+namespace Floppy.Extensions {
     public static class RandomExtensions {
         public static Vector2 NextUnitVector(this Random random) {
             float angle = random.NextAngle();

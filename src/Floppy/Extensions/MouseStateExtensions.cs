@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Input;
 using System;
 
-namespace Floppy.Utilities.Extensions {
+namespace Floppy.Extensions {
     public static class MouseStateExtensions {
         public static ButtonState GetButtonState(this MouseState mouseState, MouseButtons button) {
             switch (button) {

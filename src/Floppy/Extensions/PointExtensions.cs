@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 
-namespace Floppy.Utilities.Extensions {
+namespace Floppy.Extensions {
     public static class PointExtensions {
         public static Point Clamp(this Point point, Point topLeft, Point bottomRight) {
             return new Point(MathHelper.Clamp(point.X, topLeft.X, bottomRight.X),

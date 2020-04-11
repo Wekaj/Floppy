@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Floppy.Utilities;
+using Microsoft.Xna.Framework;
 using System;
 
 namespace Floppy.Extensions {

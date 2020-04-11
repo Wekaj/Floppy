@@ -1,6 +1,7 @@
 ﻿using Floppy.Extensions;
 using Floppy.Input;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 using Xunit;
 
@@ -27,6 +28,11 @@ namespace Floppy.Tests.Extensions {
             Assert.Equal(expectedButtonState, buttonState);
         }
 
+        [Fact]
+        public void GetButtonState_InvalidButton_ArgumentException() {
+            Assert.Throws<ArgumentException>(() => MouseStateExtensions.GetButtonState(new MouseState(), (MouseButtons)(-1)));
+        }
+
         [Theory]
         [MemberData(nameof(GetButtonStateCases))]
         public void IsButtonDown_MouseStateAndButton_CorrectOutput(MouseState mouseState, MouseButtons button, ButtonState expectedButtonState) {
@@ -37,6 +43,11 @@ namespace Floppy.Tests.Extensions {
             Assert.Equal(expectedOutput, output);
         }
 
+        [Fact]
+        public void IsButtonDown_InvalidButton_ArgumentException() {
+            Assert.Throws<ArgumentException>(() => MouseStateExtensions.IsButtonDown(new MouseState(), (MouseButtons)(-1)));
+        }
+
         [Theory]
         [MemberData(nameof(GetButtonStateCases))]
         public void IsButtonUp_MouseStateAndButton_CorrectOutput(MouseState mouseState, MouseButtons button, ButtonState expectedButtonState) {
@@ -45,6 +56,11 @@ namespace Floppy.Tests.Extensions {
             bool output = MouseStateExtensions.IsButtonUp(mouseState, button);
 
             Assert.Equal(expectedOutput, output);
+        }
+
+        [Fact]
+        public void IsButtonUp_InvalidButton_ArgumentException() {
+            Assert.Throws<ArgumentException>(() => MouseStateExtensions.IsButtonUp(new MouseState(), (MouseButtons)(-1)));
         }
 
         private static MouseState CreateMouseState(

@@ -22,7 +22,7 @@ namespace Floppy.Extensions {
                     return mouseState.XButton2;
                 }
                 default: {
-                    throw new ArgumentException();
+                    throw new ArgumentException($"{button} is not a valid mouse button.");
                 }
             }
         }

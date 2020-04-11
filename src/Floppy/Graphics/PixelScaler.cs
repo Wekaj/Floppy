@@ -21,7 +21,7 @@ namespace Floppy.Graphics {
 
         public void Begin() {
             _graphicsDevice.SetRenderTarget(_renderTarget);
-            _graphicsDevice.Clear(Color.Black);
+            _graphicsDevice.Clear(Color.Transparent);
         }
 
         public void End() {

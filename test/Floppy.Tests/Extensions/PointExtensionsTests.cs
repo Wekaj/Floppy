@@ -14,7 +14,7 @@ namespace Floppy.Tests.Extensions {
             new object[] { new Point(10, 20), 15, 25, 100, 100, new Point(15, 25) },
         };
 
-        public static IEnumerable<object[]> ManhattenDistanceCases { get; } = new[] {
+        public static IEnumerable<object[]> ManhattanDistanceCases { get; } = new[] {
             new object[] { new Point(0, 0), new Point(0, 0), 0 },
             new object[] { new Point(15, 15), new Point(15, 15), 0 },
             new object[] { new Point(5, 0), new Point(15, 0), 10 },
@@ -52,9 +52,9 @@ namespace Floppy.Tests.Extensions {
             Assert.Throws<ArgumentException>(() => PointExtensions.Clamp(new Point(0, 0), 0, 20, 0, 10));
         }
 
-        [Theory, MemberData(nameof(ManhattenDistanceCases))]
-        public void ManhattenDistance_TwoPoints_CorrectDistance(Point point1, Point point2, int expectedDistance) {
-            int distance = PointExtensions.ManhattenDistance(point1, point2);
+        [Theory, MemberData(nameof(ManhattanDistanceCases))]
+        public void ManhattanDistance_TwoPoints_CorrectDistance(Point point1, Point point2, int expectedDistance) {
+            int distance = PointExtensions.ManhattanDistance(point1, point2);
 
             Assert.Equal(expectedDistance, distance);
         }

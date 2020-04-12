@@ -25,7 +25,7 @@ namespace Floppy.Extensions {
         }
 
         /// <summary>
-        /// Get a copy of a vector with a different x-component.
+        /// Gets a copy of a vector with a different x-component.
         /// </summary>
         /// <param name="vector">The vector being copied.</param>
         /// <param name="x">The x-component of the resulting vector.</param>
@@ -35,7 +35,7 @@ namespace Floppy.Extensions {
         }
 
         /// <summary>
-        /// Get a copy of a vector with a different y-component.
+        /// Gets a copy of a vector with a different y-component.
         /// </summary>
         /// <param name="vector">The vector being copied.</param>
         /// <param name="x">The y-component of the resulting vector.</param>

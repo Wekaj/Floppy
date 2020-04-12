@@ -7,6 +7,8 @@ using Xunit;
 
 namespace Floppy.Tests.Extensions {
     public class MouseStateExtensionsTests {
+        #region Test Cases
+
         public static IEnumerable<object[]> GetButtonStateCases { get; } = new[] {
             new object[] { CreateMouseState(leftButton: ButtonState.Released), MouseButtons.Left, ButtonState.Released },
             new object[] { CreateMouseState(leftButton: ButtonState.Pressed), MouseButtons.Left, ButtonState.Pressed },
@@ -18,10 +20,11 @@ namespace Floppy.Tests.Extensions {
             new object[] { CreateMouseState(xButton1: ButtonState.Pressed), MouseButtons.X1, ButtonState.Pressed },
             new object[] { CreateMouseState(xButton2: ButtonState.Released), MouseButtons.X2, ButtonState.Released },
             new object[] { CreateMouseState(xButton2: ButtonState.Pressed), MouseButtons.X2, ButtonState.Pressed },
-        };
+        }; 
 
-        [Theory]
-        [MemberData(nameof(GetButtonStateCases))]
+        #endregion
+
+        [Theory, MemberData(nameof(GetButtonStateCases))]
         public void GetButtonState_MouseStateAndButton_CorrectState(MouseState mouseState, MouseButtons button, ButtonState expectedButtonState) {
             ButtonState buttonState = MouseStateExtensions.GetButtonState(mouseState, button);
 
@@ -33,8 +36,7 @@ namespace Floppy.Tests.Extensions {
             Assert.Throws<ArgumentException>(() => MouseStateExtensions.GetButtonState(new MouseState(), (MouseButtons)(-1)));
         }
 
-        [Theory]
-        [MemberData(nameof(GetButtonStateCases))]
+        [Theory, MemberData(nameof(GetButtonStateCases))]
         public void IsButtonDown_MouseStateAndButton_CorrectOutput(MouseState mouseState, MouseButtons button, ButtonState expectedButtonState) {
             bool expectedOutput = expectedButtonState == ButtonState.Pressed;
 
@@ -48,8 +50,7 @@ namespace Floppy.Tests.Extensions {
             Assert.Throws<ArgumentException>(() => MouseStateExtensions.IsButtonDown(new MouseState(), (MouseButtons)(-1)));
         }
 
-        [Theory]
-        [MemberData(nameof(GetButtonStateCases))]
+        [Theory, MemberData(nameof(GetButtonStateCases))]
         public void IsButtonUp_MouseStateAndButton_CorrectOutput(MouseState mouseState, MouseButtons button, ButtonState expectedButtonState) {
             bool expectedOutput = expectedButtonState == ButtonState.Released;
 
@@ -63,6 +64,8 @@ namespace Floppy.Tests.Extensions {
             Assert.Throws<ArgumentException>(() => MouseStateExtensions.IsButtonUp(new MouseState(), (MouseButtons)(-1)));
         }
 
+        #region Helper Methods
+
         private static MouseState CreateMouseState(
             ButtonState leftButton = ButtonState.Released,
             ButtonState middleButton = ButtonState.Released,
@@ -71,6 +74,8 @@ namespace Floppy.Tests.Extensions {
             ButtonState xButton2 = ButtonState.Released) {
 
             return new MouseState(0, 0, 0, leftButton, middleButton, rightButton, xButton1, xButton2);
-        }
+        } 
+
+        #endregion
     }
 }

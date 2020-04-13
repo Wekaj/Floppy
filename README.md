@@ -12,3 +12,4 @@ I mainly created this for my own Ludum Dare entries, so it isn't very robust or 
 - Basic platformer physics.
 - 2D camera and sprite animations.
 - Pixel scaling.
+- Screens.

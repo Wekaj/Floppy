@@ -55,6 +55,7 @@ namespace Floppy.Physics {
         }
 
         private static void DoTileCollisions(Body body, float deltaTime, TileMap tileMap) {
+            // A bit of a mess.
             while (true) {
                 RectangleF worldBounds = body.Bounds.Offset(body.Position).Shrink(tileMap.EdgeThreshold);
                 RectangleF velocityBounds = worldBounds.Extend(body.Velocity * deltaTime);

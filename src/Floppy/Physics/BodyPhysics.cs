@@ -142,13 +142,13 @@ namespace Floppy.Physics {
                         body.Contact = new Vector2(body.Velocity.X > 0f ? 1f : -1f, body.Contact.Y);
 
                         body.Position = new Vector2(horizontalTarget - body.Bounds.X, body.Position.Y);
-                        body.Velocity = new Vector2(0f, body.Velocity.Y);
+                        body.Velocity = new Vector2(body.Velocity.X * -body.BounceFactor, body.Velocity.Y);
                     }
                     else {
                         body.Contact = new Vector2(body.Contact.X, body.Velocity.Y > 0f ? 1f : -1f);
 
                         body.Position = new Vector2(body.Position.X, verticalTarget - body.Bounds.Y);
-                        body.Velocity = new Vector2(body.Velocity.X, 0f);
+                        body.Velocity = new Vector2(body.Velocity.X, body.Velocity.Y * -body.BounceFactor);
                     }
                 }
                 else {

@@ -21,5 +21,7 @@ namespace Floppy.Physics {
 
         public RectangleF Bounds { get; set; }
         public Vector2 Contact { get; set; }
+
+        public float BounceFactor { get; set; }
     }
 }

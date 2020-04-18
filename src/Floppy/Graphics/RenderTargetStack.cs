@@ -1,19 +1,14 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
 namespace Floppy.Graphics {
-    public class RenderTargetStack {
+    public class RenderTargetStack : IRenderTargetStack {
         private readonly GraphicsDevice _graphicsDevice;
 
         private readonly Stack<RenderTarget2D> _renderTargets = new Stack<RenderTarget2D>();
 
         public RenderTargetStack(GraphicsDevice graphicsDevice) {
             _graphicsDevice = graphicsDevice;
-        }
-
-        public void Clear(Color color) {
-            _graphicsDevice.Clear(color);
         }
 
         public void Push(RenderTarget2D renderTarget) {

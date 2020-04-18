@@ -23,5 +23,7 @@ namespace Floppy.Physics {
         public Vector2 Contact { get; set; }
 
         public float BounceFactor { get; set; }
+
+        public bool IgnoresPlatforms { get; set; } = false;
     }
 }

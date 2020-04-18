@@ -8,6 +8,8 @@
             Width = width;
             Height = height;
             TileSize = tileSize;
+
+            InitializeTiles();
         }
 
         public Tile this[int x, int y] => _tiles[x, y];
@@ -24,6 +26,14 @@
 
         public bool IsSolid(int x, int y, bool considerPlatforms = false) {
             return IsWithinBounds(x, y) && _tiles[x, y].CollisionType.IsSolid(considerPlatforms);
+        }
+
+        private void InitializeTiles() {
+            for (int y = 0; y < Height; y++) {
+                for (int x = 0; x < Width; x++) {
+                    _tiles[x, y] = new Tile();
+                }
+            }
         }
     }
 }

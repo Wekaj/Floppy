@@ -15,9 +15,10 @@ namespace Floppy.Graphics {
         public Vector2 Origin { get; set; } = Vector2.Zero;
         public Vector2 Scale { get; set; } = Vector2.One;
         public SpriteEffects Effects { get; set; } = SpriteEffects.None;
+        public float LayerDepth { get; set; } = 0f;
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position) {
-            spriteBatch.Draw(Texture, position, SourceRectangle, Color, Rotation, Origin, Scale, Effects, 0f);
+            spriteBatch.Draw(Texture, position, SourceRectangle, Color, Rotation, Origin, Scale, Effects, LayerDepth);
         }
     }
 }

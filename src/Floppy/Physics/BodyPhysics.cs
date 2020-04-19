@@ -82,7 +82,7 @@ namespace Floppy.Physics {
                         for (int x = left; x <= right; x++) {
                             bool considerPlatform = !body.IgnoresPlatforms && direction > 0 && worldBounds.Bottom <= y * tileMap.TileSize;
 
-                            if (tileMap.IsSolid(x, y, considerPlatform) && !tileMap.IsSolid(x, y - direction)) {
+                            if (tileMap.IsSolid(x, y, considerPlatform, body.IgnoresGrates) && !tileMap.IsSolid(x, y - direction, ignoreGrates: body.IgnoresGrates)) {
                                 tileY = y;
                                 break;
                             }
@@ -120,7 +120,7 @@ namespace Floppy.Physics {
                         for (int y = top; y <= bottom; y++) {
                             bool considerPlatform = !body.IgnoresPlatforms && worldBounds.Bottom <= y * tileMap.TileSize;
 
-                            if (tileMap.IsSolid(x, y) && !tileMap.IsSolid(x - direction, y, considerPlatform)) {
+                            if (tileMap.IsSolid(x, y, ignoreGrates: body.IgnoresGrates) && !tileMap.IsSolid(x - direction, y, considerPlatform, ignoreGrates: body.IgnoresGrates)) {
                                 tileX = x;
                                 break;
                             }

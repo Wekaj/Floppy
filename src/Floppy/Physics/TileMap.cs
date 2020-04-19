@@ -24,8 +24,8 @@
             return x >= 0 && y >= 0 && x < Width && y < Height;
         }
 
-        public bool IsSolid(int x, int y, bool considerPlatforms = false) {
-            return IsWithinBounds(x, y) && _tiles[x, y].CollisionType.IsSolid(considerPlatforms);
+        public bool IsSolid(int x, int y, bool considerPlatforms = false, bool ignoreGrates = false) {
+            return IsWithinBounds(x, y) && _tiles[x, y].CollisionType.IsSolid(considerPlatforms, ignoreGrates);
         }
 
         private void InitializeTiles() {

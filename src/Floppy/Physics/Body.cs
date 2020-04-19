@@ -25,5 +25,6 @@ namespace Floppy.Physics {
         public float BounceFactor { get; set; }
 
         public bool IgnoresPlatforms { get; set; } = false;
+        public bool IgnoresGrates { get; set; } = false;
     }
 }

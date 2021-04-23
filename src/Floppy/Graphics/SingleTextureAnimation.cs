@@ -8,7 +8,7 @@ namespace Floppy.Graphics {
 
         private float _totalDuration;
 
-        private readonly List<Frame> _frames = new List<Frame>();
+        private readonly List<Frame> _frames = new();
         
         public SingleTextureAnimation(Texture2D texture) {
             _texture = texture;

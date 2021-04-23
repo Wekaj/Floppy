@@ -6,7 +6,7 @@ namespace Melon.Common.Game {
     public delegate void Action<TContext>(TContext context);
 
     public class State<TContext> {
-        private readonly Dictionary<string, Transition> _transitions = new Dictionary<string, Transition>();
+        private readonly Dictionary<string, Transition> _transitions = new();
 
         private Update<TContext> _update = (context, deltaTime) => null;
         private Action<TContext> _entry = context => { };

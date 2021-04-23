@@ -5,7 +5,7 @@ namespace Floppy.Graphics {
     public class RenderTargetStack : IRenderTargetStack {
         private readonly GraphicsDevice _graphicsDevice;
 
-        private readonly Stack<RenderTarget2D> _renderTargets = new Stack<RenderTarget2D>();
+        private readonly Stack<RenderTarget2D> _renderTargets = new();
 
         public RenderTargetStack(GraphicsDevice graphicsDevice) {
             _graphicsDevice = graphicsDevice;

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 namespace Floppy.Input {
     public class InputBindings {
-        private readonly Dictionary<string, IBinding[]> _bindings = new Dictionary<string, IBinding[]>();
+        private readonly Dictionary<string, IBinding[]> _bindings = new();
 
-        private readonly HashSet<string> _previouslyPressedBindings = new HashSet<string>();
-        private readonly HashSet<string> _currentlyPressedBindings = new HashSet<string>();
+        private readonly HashSet<string> _previouslyPressedBindings = new();
+        private readonly HashSet<string> _currentlyPressedBindings = new();
 
         public void Set(string id, params IBinding[] bindings) {
             _bindings.Remove(id);

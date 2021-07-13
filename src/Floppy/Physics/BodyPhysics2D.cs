@@ -3,17 +3,18 @@ using Microsoft.Xna.Framework;
 using System;
 
 namespace Floppy.Physics {
-    public static class BodyPhysics {
-        public static void UpdateBody(Body body, float deltaTime, TileMap? tileMap = null) {
+    public static class BodyPhysics2D {
+        public static void UpdateBody(Body2D body, float deltaTime, ITerrain2D? terrain = null) {
+            ResetContact(body);
+
             ApplyGravity(body, deltaTime);
             ApplyForce(body, deltaTime);
             ApplyImpulse(body);
 
             CapVelocity(body);
 
-            ResetContact(body);
-            if (tileMap != null) {
-                DoTileCollisions(body, deltaTime, tileMap);
+            if (terrain is not null) {
+                DoTileCollisions(body, deltaTime, terrain);
             }
 
             ApplyVelocity(body, deltaTime);
@@ -21,49 +22,49 @@ namespace Floppy.Physics {
             ApplyFriction(body, deltaTime);
         }
 
-        private static void ApplyGravity(Body body, float deltaTime) {
+        public static void ResetContact(Body2D body) {
+            body.Contact = Vector2.Zero;
+        }
+
+        public static void ApplyGravity(Body2D body, float deltaTime) {
             body.Velocity += body.Gravity * deltaTime;
         }
 
-        private static void ApplyForce(Body body, float deltaTime) {
+        public static void ApplyForce(Body2D body, float deltaTime) {
             body.Velocity += body.Force * deltaTime / body.Mass;
             body.Force = Vector2.Zero;
         }
 
-        private static void ApplyImpulse(Body body) {
+        public static void ApplyImpulse(Body2D body) {
             body.Velocity += body.Impulse / body.Mass;
             body.Impulse = Vector2.Zero;
         }
 
-        private static void CapVelocity(Body body) {
+        public static void CapVelocity(Body2D body) {
             float speed = body.Velocity.Length();
             if (speed > body.MaxSpeed) {
                 body.Velocity = body.Velocity * body.MaxSpeed / speed;
             }
         }
 
-        private static void ResetContact(Body body) {
-            body.Contact = Vector2.Zero;
-        }
-
-        private static void ApplyVelocity(Body body, float deltaTime) {
+        public static void ApplyVelocity(Body2D body, float deltaTime) {
             body.Position += body.Velocity * deltaTime;
         }
 
-        private static void ApplyFriction(Body body, float deltaTime) {
+        public static void ApplyFriction(Body2D body, float deltaTime) {
             body.Velocity /= 1f + body.Friction * deltaTime;
         }
 
-        private static void DoTileCollisions(Body body, float deltaTime, TileMap tileMap) {
+        public static void DoTileCollisions(Body2D body, float deltaTime, ITerrain2D terrain) {
             // A bit of a mess.
             while (true) {
-                RectangleF worldBounds = body.Bounds.Offset(body.Position).Shrink(tileMap.EdgeThreshold);
+                RectangleF worldBounds = body.Bounds.Offset(body.Position).Shrink(terrain.EdgeThreshold);
                 RectangleF velocityBounds = worldBounds.Extend(body.Velocity * deltaTime);
 
-                int left = (int)Math.Floor(velocityBounds.Left / tileMap.TileSize);
-                int top = (int)Math.Floor(velocityBounds.Top / tileMap.TileSize);
-                int right = (int)Math.Floor(velocityBounds.Right / tileMap.TileSize);
-                int bottom = (int)Math.Floor(velocityBounds.Bottom / tileMap.TileSize);
+                int left = (int)Math.Floor(velocityBounds.Left / terrain.TileSize);
+                int top = (int)Math.Floor(velocityBounds.Top / terrain.TileSize);
+                int right = (int)Math.Floor(velocityBounds.Right / terrain.TileSize);
+                int bottom = (int)Math.Floor(velocityBounds.Bottom / terrain.TileSize);
 
                 float verticalTarget = 0f;
                 float verticalOverlap = float.MaxValue;
@@ -80,9 +81,7 @@ namespace Floppy.Physics {
                     int tileY = -1;
                     for (int y = startY; y != endY && tileY < 0; y += direction) {
                         for (int x = left; x <= right; x++) {
-                            bool considerPlatform = !body.IgnoresPlatforms && direction > 0 && worldBounds.Bottom <= y * tileMap.TileSize;
-
-                            if (tileMap.IsSolid(x, y, considerPlatform, body.IgnoresGrates) && !tileMap.IsSolid(x, y - direction, ignoreGrates: body.IgnoresGrates)) {
+                            if (terrain.IsSolid(x, y) && !terrain.IsSolid(x, y - direction)) {
                                 tileY = y;
                                 break;
                             }
@@ -91,12 +90,12 @@ namespace Floppy.Physics {
 
                     if (tileY >= 0) {
                         if (body.Velocity.Y > 0f) {
-                            float edge = tileY * tileMap.TileSize;
+                            float edge = tileY * terrain.TileSize;
                             verticalTarget = edge - body.Bounds.Height;
                             verticalOverlap = worldBounds.Bottom - edge;
                         }
                         else {
-                            float edge = (tileY + 1) * tileMap.TileSize;
+                            float edge = (tileY + 1) * terrain.TileSize;
                             verticalTarget = edge;
                             verticalOverlap = edge - worldBounds.Top;
                         }
@@ -118,9 +117,7 @@ namespace Floppy.Physics {
                     int tileX = -1;
                     for (int x = startX; x != endX && tileX < 0; x += direction) {
                         for (int y = top; y <= bottom; y++) {
-                            bool considerPlatform = !body.IgnoresPlatforms && worldBounds.Bottom <= y * tileMap.TileSize;
-
-                            if (tileMap.IsSolid(x, y, ignoreGrates: body.IgnoresGrates) && !tileMap.IsSolid(x - direction, y, considerPlatform, ignoreGrates: body.IgnoresGrates)) {
+                            if (terrain.IsSolid(x, y) && !terrain.IsSolid(x - direction, y)) {
                                 tileX = x;
                                 break;
                             }
@@ -129,12 +126,12 @@ namespace Floppy.Physics {
 
                     if (tileX >= 0) {
                         if (body.Velocity.X > 0f) {
-                            float edge = tileX * tileMap.TileSize;
+                            float edge = tileX * terrain.TileSize;
                             horizontalTarget = edge - body.Bounds.Width;
                             horizontalOverlap = worldBounds.Right - edge;
                         }
                         else {
-                            float edge = (tileX + 1) * tileMap.TileSize;
+                            float edge = (tileX + 1) * terrain.TileSize;
                             horizontalTarget = edge;
                             horizontalOverlap = edge - worldBounds.Left;
                         }
